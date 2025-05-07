@@ -15,6 +15,34 @@ export const saveEstimate = async (estimate: Estimate): Promise<void> => {
     throw new Error("Error al guardar el estimate");
   }
 };
+export const saveUser = async (
+  email: string,
+  uuid: string,
+  full_name: string,
+  company: string,
+  phone: string,
+  address: string
+): Promise<void> => {
+  const res = await fetch("http://localhost:3001/api/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: uuid,
+      email,
+      full_name,
+      company,
+      phone,
+      address,
+      created_at: new Date().toISOString(),
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error("Error al guardar el usuario");
+  }
+};
 
 export const fetchUserEstimates = async (
   user_id: string
